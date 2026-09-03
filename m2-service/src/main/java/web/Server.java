@@ -15,6 +15,7 @@ public class Server extends Jooby {
 
 		Cors cors = new Cors()
 				.setOrigin("*")
+				.setHeaders("*")
 				.setMethods("GET", "POST", "PUT", "DELETE");
 	
 		use(new CorsHandler(cors));

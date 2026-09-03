@@ -1,29 +1,24 @@
 # m2-client
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the Vue based AJAX client for the milestone 2 project.  It already includes the needed libraries.  This is a skeleton project that is similar to what you would have ended up with you you had just created a new project from scratch.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+It also includes the changes to `vite.config.js` that allows the server to run from the J: drive.
 
 ## Project Setup
+
+Once cloned, you should installed the libraries using:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Running the Development Server
+
+Run the development web server using:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+This server supports hot module reload, so you don't need to stop and restart it after making a change --- leave it running.
 
-```sh
-npm run build
-```
