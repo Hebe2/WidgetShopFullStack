@@ -19,7 +19,7 @@ public class CustomerModule extends Jooby {
 
     public CustomerModule(CustomerDAO dao) {
         this.dao = dao;
-        get("/customers", ctx -> dao.getAll());
+        get("/api/customers", ctx -> dao.getAll());
 
         get("/api/customers/{username}", ctx -> {
 

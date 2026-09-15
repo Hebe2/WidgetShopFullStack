@@ -20,7 +20,7 @@ public class ProductModule extends Jooby{
     public ProductModule(ProductDAO dao) {
         this.dao = dao;
         //get products
-        get("/products", ctx -> dao.getProducts());
+        get("/api/products", ctx -> dao.getProducts());
 
         //get products by id
         get("/api/products/{id}", ctx -> {
