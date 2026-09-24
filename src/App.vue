@@ -1,11 +1,18 @@
 <script setup></script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <nav>
+	  <router-link to="/">Home</router-link>
+	  <router-link to="/view">Browse Products</router-link>
+	  <!-- <router-link to="/a">Add Product</router-link> -->
+  </nav>
+  <main>
+	  <router-view />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+nav > a {
+    padding: 5px;
+}
+</style>
