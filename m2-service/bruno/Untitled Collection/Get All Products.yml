@@ -6,6 +6,17 @@ info:
 http:
   method: GET
   url: http://localhost:8087/api/products
+  body:
+    type: json
+    data: |-
+      {
+        "productId": "WD123",
+        "name": "blue widget",
+        "description": "widget that is blue",
+        "category": "widgets",
+        "listPrice": "11.99",
+        "quantityInStock": "5",
+      }
   auth: inherit
 
 runtime:

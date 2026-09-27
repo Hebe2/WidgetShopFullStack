@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/product/{id}
+  url: http://localhost:8087/api/products/WD4321
   auth: inherit
 
 runtime:
@@ -13,9 +13,6 @@ runtime:
     - expression: res.status
       operator: eq
       value: "200"
-    - expression: res.body.username
-      operator: eq
-      value: Doris123
 
 settings:
   encodeUrl: true
