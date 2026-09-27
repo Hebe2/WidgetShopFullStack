@@ -43,5 +43,17 @@ public class CustomerModule extends Jooby {
             ctx.send(StatusCode.CREATED);
             return customer;
         });
+
+        post("/api/sign-in", ctx -> {
+            Customer credentials = ctx.body().to(Customer.class);
+            Customer customer = dao.getByUsername(credentials.getUsername());
+
+            if (customer == null || customer.getPassword() == null
+                    || !customer.getPassword().equals(credentials.getPassword())) {
+                return ctx.send(StatusCode.UNAUTHORIZED);
+            }
+
+            return customer.getFirstName();
+        });
     }
 }

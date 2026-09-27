@@ -1,10 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { setSelectedProducts } from './selectedProducts';
-import { useRouter } from 'vue-router';
 
-const router = useRouter();
 const products = ref(new Array());
 //const majors = ref(new Array());
 
@@ -26,11 +23,6 @@ async function getShoppingCart() {
 		console.error(error);
 		alert('Error getting products');
 	}
-}
-
-function checkOut(cart) {
-    setSelectedProducts(cart);
-    router.push("/confirmation");
 }
 
 // click handler for the major filter buttons

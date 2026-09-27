@@ -95,4 +95,45 @@ async function filterByCategory(category) {
 </template>
 
 <style scoped>
+
+.banner{
+    text-align: center;
+    margin-bottom: 4rem;
+    background-color: lightgray;
+    font-size: 1.8rem;
+    padding:2px;
+    border-block: black 2px solid;
+
+}
+
+.category-buttons{
+    text-align: center;
+    margin: 2em;
+}
+
+.category-buttons button{
+    font-size: 1.5rem;
+    padding:5px;
+    margin: 0 0.5rem;
+}
+
+#products-table{
+    margin-inline: auto;
+    border-collapse: collapse;
+    margin-bottom: 8rem;
+}
+
+#products-table td, #products-table th  {
+    border-block: 2px solid black;
+    padding:2rem;
+    font-size: 1.2rem;
+}
+
+.buy-button{
+    font-size: 1.2rem;
+    padding:5px;
+}
+
+
+
 </style>

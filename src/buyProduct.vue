@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { selectedProduct } from './selectedProduct';
+import { getSelectedProduct } from './selectedProduct';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const selectedProduct = getSelectedProduct();
 const products = ref(new Array());
 const selectedQuantity = ref(1);
 
@@ -21,7 +22,7 @@ onMounted(async() => {
     } 
     try{
         const response = await axios.get(
-            productsFilterApiUrl({selectedProduct.id })
+            // productsFilterApiUrl({selectedProduct.id })
         );
         products.value = response.data;
     } catch (error) {
