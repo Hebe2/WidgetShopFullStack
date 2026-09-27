@@ -1,39 +1,28 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { getSelectedProduct } from './selectedProduct';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { getSelectedProduct } from '@/selectedProduct';
+import { SaleItem, getSale } from '@/cart';
 
 const router = useRouter();
-const selectedProduct = getSelectedProduct();
-const products = ref(new Array());
-const selectedQuantity = ref(1);
+const product = ref(getSelectedProduct());
+const quantity = ref(1);
 
-// const productsApiUrl = 'http://localhost:8087/api/products';
-const productsFilterApiUrl = ({ id }) => `http://localhost:8087/api/products/${id}`;
-// const categoriesApiUrl = 'http://localhost:8087/api/categories';
-// const categoriesFilterApiUrl = ({ category }) => `http://localhost:8087/api/categories/${category}`;
+function buyProduct() {
+    // get the sale from the cart module
+    let sale = getSale();
 
+    // create a SaleItem using the data from the models
+    let item = new SaleItem(product.value, quantity.value, product.value.listPrice);
 
-onMounted(async() => {
-    if(!selectedProduct){
-        alert('No product selected');
-        return;
-    } 
-    try{
-        const response = await axios.get(
-            // productsFilterApiUrl({selectedProduct.id })
-        );
-        products.value = response.data;
-    } catch (error) {
-        console.error(error);
-        alert('Error getting product by ID');
-    }
-});
+    // add the item to the sale
+    sale.addItem(item);
 
+    // save the sale in the session storage
+    sale.save();
 
-function addToCart(product) {
-    console.log(`Adding ${selectedQuantity.value} of ${product.name} to cart`);
+    // display the cart component
+    router.push("/cart");
 }
 
 </script>
@@ -43,34 +32,44 @@ function addToCart(product) {
     </div>
 
 
-    <table id="products-table">
-        <thead>
-            <tr>
-                <th>ID:</th>
-                <th>Name:</th>
-                <th>Description:</th>
-                <th>Price:</th>
-                <th>Quantity Available:</th>
-            </tr>
-        </thead>
-        <tbody>
+    <section v-if="product">
+        <table id="products-table">
+            <thead>
+                <tr>
+                    <th>ID:</th>
+                    <th>Name:</th>
+                    <th>Description:</th>
+                    <th>Price:</th>
+                    <th>Quantity available:</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <tr id="product-rows" v-for="product in products" :key="product.id">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.listPrice }}</td>
-                <td>{{ product.quantityInStock }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="quantity-box">
-        <input type="number" v-model="selectedQuantity" min="1" :max="selectedProduct?.quantityInStock"/>
-        <button @click.prevent="addToCart">Add to Cart</button>
-    </div>
+                <tr id="product-rows" :key="product.productId">
+                    <td>{{ product.productId }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.listPrice }}</td>
+                    <td>{{ product.quantityInStock }}</td>
+                </tr>
 
-    <router-link class="nav" to="/">Back to Home</router-link>
+            </tbody>
+        </table>
+
+        <form @submit.prevent="buyProduct">
+            <div id="buy-container">
+                <fieldset id="buy-details">
+
+                    <legend>Quantity to buy</legend>
+
+
+                    <label>How many?</label><input v-model="quantity" type="number" name="quantitywanted" required />
+                    <button id="add-to-cart-button" type="submit">Add to Cart</button>
+
+                </fieldset>
+            </div>
+        </form>
+    </section>
 
 </template>
 

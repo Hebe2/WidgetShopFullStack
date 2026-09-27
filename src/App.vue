@@ -1,23 +1,23 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { clearSelectedCustomer, selectedCustomer } from './selectedCustomer'
+import { isSignedIn, signedInCustomer, signOut } from '@/signIn'
 
 const router = useRouter()
 
-function signOut() {
-    clearSelectedCustomer()
+function doSignOut() {
+    signOut()
     router.push('/')
 }
 </script>
 
 <template>
     <nav id="nav-bar">
-        <template v-if="selectedCustomer">
+        <template v-if="isSignedIn">
             <router-link to="/">Home</router-link>
             <router-link to="/view">Browse Products</router-link>
             <router-link to="/cart">View Cart</router-link>
-            <button type="button" @click="signOut">Sign Out</button>
-            <p>Welcome, {{ selectedCustomer.firstName }}!</p>
+            <a href="#" @click.prevent="doSignOut">Sign Out</a>
+            <p>Welcome, {{ signedInCustomer.firstName }}!</p>
         </template>
         <template v-else>
             <router-link to="/">Home</router-link>
@@ -40,7 +40,8 @@ function signOut() {
     padding: 15px;
 }
 
-#nav-bar a,button{
+#nav-bar a,
+#nav-bar button{
     font-size: 1.5rem;
     padding-block:0.5rem;
     padding-inline: 0.8rem;

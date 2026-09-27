@@ -2,33 +2,24 @@
 import { useRouter } from 'vue-router'
 import { ref } from 'vue';
 import axios from 'axios';
-import { setSelectedCustomer } from './selectedCustomer';
+import { signIn } from '@/signIn';
 const router = useRouter();
 const customer = ref({
     username: '',
     password: ''
 });
 
-const customersApiUrl = 'http://localhost:8087/api/sign-in';
+const customerByUsernameApiUrl = (username) => `http://localhost:8087/api/customers/${username}`;
 
 async function signInCustomer() {
     try {
-        const response = await axios.post(customersApiUrl, customer.value);
-        const firstName = typeof response.data === 'string'
-            ? response.data
-            : response.data?.firstName;
-        setSelectedCustomer({
-            username: customer.value.username,
-            firstName: firstName || customer.value.username
-        });
+        const response = await axios.get(customerByUsernameApiUrl(customer.value.username));
+        signIn(response.data);
         router.push('/');
-        console.log('Customer signed in successfully:', response.data);
-
     } catch (error) {
         console.error(error);
         alert('Failed to sign in customer');
     }
-
 }
 
 </script>
