@@ -26,8 +26,6 @@ async function addCustomer() {
 
 }
 
-
-
 </script>
 
 <template>

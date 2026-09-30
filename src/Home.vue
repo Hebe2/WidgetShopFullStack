@@ -1,5 +1,7 @@
 <script setup>
-/* JavaScript for the component goes here */
+import slimyWidget from '@/assets/widget.jpeg';
+import popWidget from '@/assets/pop-widget.jpeg';
+
 </script>
 
 <template>
@@ -10,10 +12,10 @@
 	<div id="products-container">
 
 		<div class="img-container">
-			<img class="product-img" src="./images/widget.jpeg" alt="slimy widget">
+			<img class="product-img" :src="slimyWidget" alt="slimy widget">
 		</div>
 		<div class="img-container">
-			<img class="product-img" src="./images/pop-widget.jpeg" alt="Description of image">
+			<img class="product-img" :src="popWidget" alt="widget that pops">
 		</div>
 
 	</div>

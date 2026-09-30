@@ -1,17 +1,25 @@
 <script setup>
+import axios from 'axios';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { clearCart, getSale } from '@/cart';
-import { formatCurrency, formatNumber } from '@/formatters';
+import { formatCurrency, formatNumber } from '@/formatter';
+import * as sessionStore from '@/sessionStorage';
 
+const router = useRouter();
 const sale = ref(getSale());
 
-function checkout(sale) {
-    const customer = sessionStore.get("customer");
-    sale.value.setCustomer(customer);
-    axios.post('http://localhost:8087/api/sales', sale.value);
-    clearCart();
-    router.push("/thank-you");
-    console.log('checkout', sale);
+async function checkout() {
+    try {
+        const customer = sessionStore.get("customer");
+        sale.value.setCustomer(customer);
+        await axios.post('http://localhost:8087/api/sales', sale.value);
+        clearCart();
+        router.push("/thank-you");
+    } catch (error) {
+        console.error(error);
+        alert('Failed to complete checkout');
+    }
 }
 </script>
 
@@ -44,21 +52,43 @@ function checkout(sale) {
             </tr>
         </tfoot>
     </table>
-    <button type="button" @click.prevent="checkout(sale)">Checkout</button>
+    <button id="checkout-button" type="button" @click="checkout">Checkout</button>
 
 
 </template>
 
 <style scoped>
-/* centre the major buttons
-#majors {
-	display: block;
-	text-align: center;
+.banner {
+    text-align: center;
+    margin-bottom: 4rem;
+    background-color: lightgray;
+    font-size: 1.8rem;
+    padding: 2px;
+    border-block: black 2px solid;
+
 }
 
-/* add some gaps between the major buttons */
-/* #majors button {
-	margin-left: 2pt;
-	margin-right: 2pt;
-} */
+#cart-table {
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    width:80%;
+    margin-inline: auto;
+}
+
+#cart-table td,
+#cart-table th {
+    border-bottom: 2px dashed black;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: left;
+    
+}
+
+#checkout-button {
+    display: block;
+    margin-inline: auto;
+    font-size: 1.5rem;
+    padding: 5px;
+    margin-bottom: 5rem;
+}
 </style>

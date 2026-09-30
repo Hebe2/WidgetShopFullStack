@@ -18,20 +18,22 @@ function checkout(sale) {
     <div class="banner">
         <h1>Thank You For Your Order</h1>
     </div>
-
     <p>We have emailed you the details of your order to your registered email address.</p>
 </template>
 
 <style scoped>
-/* centre the major buttons
-    #majors {
-        display: block;
-        text-align: center;
-    }
+.banner {
+    text-align: center;
+    margin-bottom: 2rem;
+    background-color: lightgray;
+    font-size: 1.8rem;
+    padding: 2px;
+    border-block: black 2px solid;
 
-    /* add some gaps between the major buttons */
-/* #majors button {
-        margin-left: 2pt;
-        margin-right: 2pt;
-    } */
+}
+p{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 5rem;
+}
 </style>

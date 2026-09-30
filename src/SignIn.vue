@@ -3,6 +3,8 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue';
 import axios from 'axios';
 import { signIn } from '@/signIn';
+import { createToken } from '@/authentication';
+
 const router = useRouter();
 const customer = ref({
     username: '',
@@ -13,6 +15,7 @@ const customerByUsernameApiUrl = (username) => `http://localhost:8087/api/custom
 
 async function signInCustomer() {
     try {
+        createToken(customer.value.username, customer.value.password);
         const response = await axios.get(customerByUsernameApiUrl(customer.value.username));
         signIn(response.data);
         router.push('/');

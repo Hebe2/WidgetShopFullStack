@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { setSelectedProduct } from '@/selectedProduct';
 import { useRouter } from 'vue-router';
-import { formatCurrency, formatNumber } from '@/formatters';
+import { formatCurrency, formatNumber } from '@/formatter';
 
 
 const router = useRouter();
@@ -74,29 +74,34 @@ function buyProduct(product) {
     <table id="products-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th>Available</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
 
             <tr id="product-rows" v-for="product in products" :key="product.productId">
-                <td>{{ product.id }}</td>
+                <td>{{ product.productId }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.category }}</td>
                 <td>{{ formatCurrency(product.listPrice) }}</td>
-                <td>{{ formatNumber(product.quantityInStock, 2) }}</td>
-                <td><button type="button" @click.prevent="buyProduct(product)">Buy</button></td>
+                <td>{{ formatNumber(product.quantityInStock, 0) }}</td>
+                <td><button id = "buy-button" type="button" @click.prevent="buyProduct(product)">Buy</button></td>
 
 
             </tr>
 
         </tbody>
     </table>
-    <router-link class="nav" to="/">Back to Home</router-link>
+    <div class="nav">
+    <router-link class="nav-button" to="/">Back to Home</router-link>
+    </div>
 
 </template>
 
@@ -125,18 +130,36 @@ function buyProduct(product) {
 #products-table {
     margin-inline: auto;
     border-collapse: collapse;
-    margin-bottom: 8rem;
+    margin-bottom: 3rem;
+    width: 80%;
 }
 
 #products-table td,
 #products-table th {
-    border-block: 2px solid black;
+    border-block: 2px dashed black;
     padding: 2rem;
     font-size: 1.2rem;
+    text-align: left;
 }
 
-.buy-button {
+#buy-button {
+    font-weight: 400;
     font-size: 1.2rem;
     padding: 5px;
+}
+
+.nav {
+    display: block;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.nav-button {
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    padding: 8px;
+    background-color: lightgray;
 }
 </style>
