@@ -15,7 +15,7 @@ import java.util.Map;
  * 
  *adapted from studentsystem
  */
-public interface CustomerDAO {
+public interface CustomerDAO extends CredentialsValidator{
 
     boolean doesCustomerExist(Integer customerId);
     

@@ -4,6 +4,7 @@
  */
 package web;
 
+import dao.SaleDAO;
 import io.jooby.Jooby;
 import domain.Sale;
 import io.jooby.StatusCode;

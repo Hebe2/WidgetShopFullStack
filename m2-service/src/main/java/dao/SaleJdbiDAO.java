@@ -23,6 +23,7 @@ public interface SaleJdbiDAO extends SaleDAO {
     @GetGeneratedKeys
     Integer insertSale(@BindBean Sale sale);
 
+    
     @SqlUpdate("INSERT INTO Sale_Item (Sale_ID, Product_ID, Quantity_Purchased, Sale_Price) " + "VALUES (:saleId, :product.productId, :quantityPurchased, :salePrice)")
     void insertSaleItem(@BindBean SaleItem item, @Bind("saleId") Integer saleId);
 

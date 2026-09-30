@@ -15,7 +15,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 /**
  *
  * @author hebebebebe
- * 
+ *
  * adapted from studentsystem
  */
 public interface ProductJdbiDAO extends ProductDAO {
@@ -34,7 +34,7 @@ public interface ProductJdbiDAO extends ProductDAO {
     public void removeProduct(@BindBean Product aProduct);
 
     @Override
-    @SqlQuery("SELECT product_id AS productId, product_name AS name, description, category, list_price AS listPrice, quantity_in_stock AS quantityInStock FROM Product ORDER BY product_Id")
+    @SqlQuery("select product_id AS productId, product_name AS name, description, category, list_price AS listPrice, quantity_in_stock AS quantityInStock from Product where quantity_in_stock > 0")
     @RegisterBeanMapper(Product.class)
     public Collection<Product> getProducts();
 
@@ -43,7 +43,7 @@ public interface ProductJdbiDAO extends ProductDAO {
     public Collection<String> getCategories();
 
     @Override
-    @SqlQuery("SELECT product_id AS productId, product_name AS name, description, category, list_price AS listPrice, quantity_in_stock AS quantityInStock FROM Product WHERE category = :category")
+    @SqlQuery("select product_id AS productId, product_name AS name, description, category, list_price AS listPrice, quantity_in_stock AS quantityInStock from Product where category = :category and quantity_in_stock > 0")
     @RegisterBeanMapper(Product.class)
     public Collection<Product> filterByCategory(@Bind("category") String category);
 
