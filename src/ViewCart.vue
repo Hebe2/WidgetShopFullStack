@@ -1,93 +1,94 @@
 <script setup>
-import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { setSelectedProducts } from './selectedProducts';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { clearCart, getSale } from '@/cart';
+import { formatCurrency, formatNumber } from '@/formatter';
+import * as sessionStore from '@/sessionStorage';
 
 const router = useRouter();
-const products = ref(new Array());
-//const majors = ref(new Array());
+const sale = ref(getSale());
 
-const productsApiUrl = 'http://localhost:8085/api/products';
-// const majorsApiUrl = 'http://localhost:8085/api/majors';
-const productsFilterApiUrl = ({ id }) => `http://localhost:8085/api/products/${id}`;
-
-
-onMounted( () => {
-	getShoppingCart();
-    // getMajors();
-});
-
-async function getShoppingCart() {
-	try {
-		let response = await axios.get(productsApiUrl);
-		products.value = response.data;
-	} catch (error) {
-		console.error(error);
-		alert('Error getting products');
-	}
+async function checkout() {
+    try {
+        const customer = sessionStore.get("customer");
+        sale.value.setCustomer(customer);
+        await axios.post('http://localhost:8087/api/sales', sale.value);
+        clearCart();
+        router.push("/thank-you");
+    } catch (error) {
+        console.error(error);
+        alert('Failed to complete checkout');
+    }
 }
-
-function checkOut(cart) {
-    setSelectedProducts(cart);
-    router.push("/confirmation");
-}
-
-// click handler for the major filter buttons
-// async function filterByMajor(major) {
-// 	const filterUrl = majorsFilterApiUrl({'major':major});
-//     try {
-// 		let response = await axios.get(filterUrl);
-// 		students.value = response.data;
-// 	} catch (error) {
-// 		console.error(error);
-// 		alert('Error getting students');
-// 	}
-// }
-
 </script>
 
 <template>
-    <h1>Products</h1>
-      
-            <table id="cart-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    
-                    </tr>
-                </thead>
-                <tbody>
+   <div class="banner">
+        <h1>Shopping Cart</h1>
+    </div>
 
-                    <tr v-for="product in products" :key="product.id">
-                        <td>{{product.id}}</td>
-                        <td>{{product.name}}</td>
-                        <td>{{product.price}}</td>
-                        <td>{{product.quantity}}</td>
-                        <td>{{product.total}}</td>
-                        <td><form  @submit.prevent="update(product)" ><button>Update</button></form>
-                        </td>
-                    </tr>
-                   
-                </tbody>
-            </table>
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in sale.items" :key="item.product.productId">
+                <td>{{ item.product.name }}</td>
+                <td>{{ formatCurrency(item.product.listPrice) }}</td>
+                <td>{{ formatNumber(item.quantityPurchased, 2) }}</td>
+                <td>{{ formatCurrency(item.getItemTotal()) }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">Total</th>
+                <td>{{ formatCurrency(sale.getTotal()) }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <button id="checkout-button" type="button" @click="checkout">Checkout</button>
 
-    <router-link class="nav" to="/">Back to Home</router-link>
+
 </template>
 
 <style scoped>
-	/* centre the major buttons
-#majors {
-	display: block;
-	text-align: center;
+.banner {
+    text-align: center;
+    margin-bottom: 4rem;
+    background-color: lightgray;
+    font-size: 1.8rem;
+    padding: 2px;
+    border-block: black 2px solid;
+
 }
 
-/* add some gaps between the major buttons */
-/* #majors button {
-	margin-left: 2pt;
-	margin-right: 2pt;
-} */ 
+#cart-table {
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    width:80%;
+    margin-inline: auto;
+}
+
+#cart-table td,
+#cart-table th {
+    border-bottom: 2px dashed black;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: left;
+    
+}
+
+#checkout-button {
+    display: block;
+    margin-inline: auto;
+    font-size: 1.5rem;
+    padding: 5px;
+    margin-bottom: 5rem;
+}
 </style>

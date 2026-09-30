@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 
 let selectedProduct = new Object();
 

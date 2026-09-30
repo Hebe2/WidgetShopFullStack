@@ -1,38 +1,28 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { selectedProduct } from './selectedProduct';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { getSelectedProduct } from '@/selectedProduct';
+import { SaleItem, getSale } from '@/cart';
 
 const router = useRouter();
-const products = ref(new Array());
-const selectedQuantity = ref(1);
+const product = ref(getSelectedProduct());
+const quantity = ref(1);
 
-// const productsApiUrl = 'http://localhost:8087/api/products';
-const productsFilterApiUrl = ({ id }) => `http://localhost:8087/api/products/${id}`;
-// const categoriesApiUrl = 'http://localhost:8087/api/categories';
-// const categoriesFilterApiUrl = ({ category }) => `http://localhost:8087/api/categories/${category}`;
+function buyProduct() {
+    // get the sale from the cart module
+    let sale = getSale();
 
+    // create a SaleItem using the data from the models
+    let item = new SaleItem(product.value, quantity.value, product.value.listPrice);
 
-onMounted(async() => {
-    if(!selectedProduct){
-        alert('No product selected');
-        return;
-    } 
-    try{
-        const response = await axios.get(
-            productsFilterApiUrl({selectedProduct.id })
-        );
-        products.value = response.data;
-    } catch (error) {
-        console.error(error);
-        alert('Error getting product by ID');
-    }
-});
+    // add the item to the sale
+    sale.addItem(item);
 
+    // save the sale in the session storage
+    sale.save();
 
-function addToCart(product) {
-    console.log(`Adding ${selectedQuantity.value} of ${product.name} to cart`);
+    // display the cart component
+    router.push("/cart");
 }
 
 </script>
@@ -42,35 +32,107 @@ function addToCart(product) {
     </div>
 
 
-    <table id="products-table">
-        <thead>
-            <tr>
-                <th>ID:</th>
-                <th>Name:</th>
-                <th>Description:</th>
-                <th>Price:</th>
-                <th>Quantity Available:</th>
-            </tr>
-        </thead>
-        <tbody>
+    <section v-if="product">
+        <div id="product-details" :key="product.productId">
+            <table id="products-table">
+                <tbody>
+                    <tr>
+                        <th>ID:</th>
+                        <td>{{ product.productId }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name:</th>
+                        <td>{{ product.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description:</th>
+                        <td>{{ product.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Price:</th>
+                        <td>{{ product.listPrice }}</td>
+                    </tr>
+                    <tr>
+                        <th>Category:</th>
+                        <td>{{ product.category }}</td>
+                    </tr>
+                    <tr>
+                        <th>Quantity available:</th>
+                        <td>{{ product.quantityInStock }}</td>
 
-            <tr id="product-rows" v-for="product in products" :key="product.id">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.listPrice }}</td>
-                <td>{{ product.quantityInStock }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="quantity-box">
-        <input type="number" v-model="selectedQuantity" min="1" :max="selectedProduct?.quantityInStock"/>
-        <button @click.prevent="addToCart">Add to Cart</button>
-    </div>
+                    </tr>
+                </tbody>
 
-    <router-link class="nav" to="/">Back to Home</router-link>
+
+            </table>
+        </div>
+        <form @submit.prevent="buyProduct">
+            <div id="buy-container">
+                <fieldset id="buy-details">
+
+                    <legend>Quantity to buy</legend>
+
+                    <label>How many?</label><input v-model="quantity" type="number" name="quantitywanted" required />
+                    <button id="add-to-cart-button" type="submit">Add to Cart</button>
+
+                </fieldset>
+            </div>
+        </form>
+    </section>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.banner {
+    text-align: center;
+    margin-bottom: 4rem;
+    background-color: lightgray;
+    font-size: 1.8rem;
+    padding: 2px;
+    border-block: black 2px solid;
+
+}
+
+#products-table {
+    text-align: left;
+    width: 60%;
+    margin-inline: auto;
+    font-size: 1.2rem;
+    margin-bottom: 4rem;
+}
+#products-table th,
+#products-table td {
+    border-bottom: dashed 1px black;
+}
+
+#products-table th {
+    font-weight: bold;
+    width:20%;
+}
+
+#products-table td {
+    padding-left: 3rem;
+}
+
+#buy-container{
+    min-width: 15rem;
+    max-width: 50rem;
+    margin-inline: auto;
+}
+
+#buy-container legend{
+        font-size: 1.5rem;
+
+    font-weight: bold;
+}
+
+#buy-container label,#buy-container input{
+    font-size: 1.2rem;
+padding: 5px;
+}
+#add-to-cart-button{
+    font-size: 1.2rem;
+    padding: 5px;
+    margin-left: 1rem;
+}
+</style>
