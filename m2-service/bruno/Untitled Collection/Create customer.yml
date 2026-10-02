@@ -10,7 +10,6 @@ http:
     type: json
     data: |-
       {
-        "customerId": 6,
         "username": "Mary390",
         "firstName": "Mary",
         "surname": "Jane",

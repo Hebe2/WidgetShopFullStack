@@ -15,7 +15,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 /**
  *
  * @author hebebebebe
- * 
+ *
  * adapted from studentsystem
  */
 public interface CustomerJdbiDAO extends CustomerDAO {
@@ -31,7 +31,8 @@ public interface CustomerJdbiDAO extends CustomerDAO {
     public void delete(@BindBean Customer aCustomer);
 
     @Override
-    @SqlUpdate("insert into Customer(customer_id, username, first_name, last_name, shipping_address, email_address, password) values (:customerId, :username, :firstName, :surname, :shippingAddress, :emailAddress, :password)")
+    @SqlUpdate("insert into Customer(username, first_name, last_name, shipping_address, email_address, password)\n"
+            + "values (:username, :firstName, :surname, :shippingAddress, :emailAddress, :password)")
     public void save(@BindBean Customer aCustomer);
 
     @Override

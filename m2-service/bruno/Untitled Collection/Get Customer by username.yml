@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/customers/Doris123
+  url: http://localhost:8087/api/customers/doris123
   auth: inherit
 
 runtime:
@@ -15,7 +15,7 @@ runtime:
       value: "200"
     - expression: res.body.username
       operator: eq
-      value: Doris123
+      value: doris123
 
 settings:
   encodeUrl: true

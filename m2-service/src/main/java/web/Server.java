@@ -35,7 +35,7 @@ public class Server extends Jooby {
         
         use(new CorsHandler(cors));
         install(new GsonModule());
-        install(new BasicAccessAuth(customer_dao, Set.of("/api/.*"), Set.of("/api/register")));
+        //install(new BasicAccessAuth(customer_dao, Set.of("/api/.*"), Set.of("/api/register")));
 
         // mount your modules here
         mount(new ProductModule(product_dao));

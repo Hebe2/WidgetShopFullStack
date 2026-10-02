@@ -10,13 +10,20 @@ http:
     type: json
     data: |-
       {
-        "customerId": 6,
-        "username": "Mary390",
-        "firstName": "Mary",
-        "surname": "Jane",
-        "password": "marypassword390",
-        "emailAddress": "mary@aaa.com",
-        "shippingAddress": "390 nam Road"
+        "customer": {
+          "customerId": 6,
+          "username": "Mary390"
+        },
+        "date": "2026-10-02T10:00:00",
+        "items": [
+          {
+            "product": {
+              "productId": SQ1111
+            },
+            "quantityPurchased": 2,
+            "salePrice": 6.99
+          }
+        ]
       }
   auth: inherit
 
@@ -25,8 +32,9 @@ runtime:
     - expression: res.status
       operator: eq
       value: "201"
-    - expression: res.body
-      operator: isEmpty
+    - expression: res.body.customer.customerId
+      operator: eq
+      value: "6"
 
 settings:
   encodeUrl: true
