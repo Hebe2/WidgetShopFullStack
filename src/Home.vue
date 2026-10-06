@@ -1,21 +1,37 @@
 <script setup>
-import slimyWidget from '@/assets/widget.jpeg';
-import popWidget from '@/assets/pop-widget.jpeg';
+import butterSquishy from '@/assets/butterSquishy.jpeg';
+import glowInTheDark from '@/assets/glowInTheDark.jpg';
+import popFS from '@/assets/popFS.jpg';
+import redFS from '@/assets/redFS.png';
+import slowRise from '@/assets/slowRise.webp';
+import triangleSpinner from '@/assets/triangleSpinner.jpg';
+
 
 </script>
 
-<template>
+<template>  
 	<div class="banner">
 		<h1>Welcome to the WidgetShop</h1>
 	</div>
 
 	<div id="products-container">
-
 		<div class="img-container">
-			<img class="product-img" :src="slimyWidget" alt="slimy widget">
+			<img class="product-img" :src="butterSquishy" alt="BUTTER SQUISHY">
 		</div>
 		<div class="img-container">
-			<img class="product-img" :src="popWidget" alt="widget that pops">
+			<img class="product-img" :src="glowInTheDark" alt="GLOW-IN-THE-DARK DUMPLING">
+		</div>
+        <div class="img-container">
+			<img class="product-img" :src="slowRise" alt="SLOW RISE SQUISHY">
+		</div>
+		<div class="img-container">
+			<img class="product-img" :src="triangleSpinner" alt="TRIANGLE SPINNER">
+		</div>
+        <div class="img-container">
+			<img class="product-img" :src="popFS" alt="POP FIDGET SPINNER ">
+		</div>
+        <div class="img-container">
+			<img class="product-img" :src="redFS" alt="RED FIDGET SPINNER ">
 		</div>
 
 	</div>
@@ -35,7 +51,7 @@ import popWidget from '@/assets/pop-widget.jpeg';
 
 #products-container{
     display: grid;
-    grid-template-columns: repeat(2, 25rem);
+    grid-template-columns: repeat(3, 25rem);
     grid-template-rows: repeat(1, 20rem);
     gap: 16px;
     justify-content: center;
