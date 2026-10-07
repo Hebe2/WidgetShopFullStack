@@ -20,4 +20,5 @@ public class SaleCollectionsDAO implements SaleDAO {
     public void save(Sale sale) {
         sales.put(sale.getSaleId(), sale);
     }
+    
 }
