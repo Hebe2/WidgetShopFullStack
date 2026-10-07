@@ -19,63 +19,23 @@ skinparam {
   }
 }
 
-' === Actors / Participants ===
 actor "Customer" as user
-participant "Products.vue" as productPage << Vue Page >>
-participant "filterByCategory()" as filterFn << JavaScript >>
-participant "axios" as axios << HTTP Client >>
-participant "formatter.js" as fmt << JavaScript >>
+participant "Products.vue" as page << Web Page >>
+participant "filterByCategory()" as fn << JavaScript >>
 participant "ProductModule" as module << Jooby Module >>
 participant "ProductJdbiDAO" as dao << DAO >>
 database "H2 Database" as db
 
-' === Interactions ===
-note over user : Products page is already loaded\n(category buttons are displayed)
-
-user -> productPage++ : clicks a category button
-productPage -> filterFn++ : filterByCategory(category)
-
-filterFn -> filterFn : categoriesFilterApiUrl({category})\nbuilds filterUrl
-
-filterFn -> axios++ : get(filterUrl)
-axios -> module++ : GET /api/categories/{category}
-
-module -> module : ctx.path("category").value()
-
+user -> page++ : clicks category button
+page -> fn++ : filterByCategory(category)
+fn -> module++ : HTTP GET /api/categories/{category}
 module -> dao++ : filterByCategory(category)
-dao -> db++ : SELECT product_id, product_name, description,\ncategory, list_price, quantity_in_stock\nFROM Product\nWHERE category = :category\nAND quantity_in_stock > 0
-db --> dao-- : return rows
-dao --> module-- : return Collection<Product>
-
-alt products not empty
-  module --> axios : 200 OK (JSON array of products)
-  axios --> filterFn : return response
-
-  filterFn -> filterFn : products.value = response.data
-  filterFn --> productPage : return
-
-  productPage -> productPage : Vue re-renders table\n(v-for product in products)
-
-  loop for each product
-    productPage -> fmt++ : formatCurrency(product.listPrice)
-    fmt --> productPage-- : return formatted price
-    productPage -> fmt++ : formatNumber(product.quantityInStock, 0)
-    fmt --> productPage-- : return formatted number
-  end
-
-  productPage --> user : displays filtered products table
-else products empty
-  module --> axios : 404 Not Found
-  axios --> filterFn : throws error
-  filterFn -> filterFn : console.error(error)
-  filterFn -> productPage : alert('Error getting products')
-  filterFn --> productPage : return
-  productPage --> user : shows error alert
-end
-
-deactivate module
-deactivate axios
-deactivate filterFn
-deactivate productPage
-
+dao -> db++ : SELECT ... FROM Product\nWHERE category = :category\nAND quantity_in_stock > 0
+db --> dao-- : rows
+dao --> module-- : Collection<Product>
+module --> fn-- : 200 OK (JSON array)
+fn -> fn : products.value = response.data
+fn --> page-- : return
+page --> user-- : displays filtered products
+@enduml
 @enduml
