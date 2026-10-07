@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/categories/Widgets
+  url: http://localhost:8087/api/categories/Squishies
   auth: inherit
 
 runtime:
@@ -13,6 +13,8 @@ runtime:
     - expression: res.status
       operator: eq
       value: "200"
+    - expression: res.body
+      operator: isArray
 
 settings:
   encodeUrl: true
