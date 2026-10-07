@@ -32,33 +32,38 @@ function doSignOut() {
 </template>
 
 <style scoped>
-
+@import url('https://fonts.googleapis.com/css2?family=Isometra&display=swap');
 #nav-bar{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 15px;
+    background-color: #1b2e24;
+    height: 60px;
+    font-family: "Isometra", serif;
 }
 
 #nav-bar a,
+#nav-bar p,
 #nav-bar button{
     font-size: 1.5rem;
-    padding-block:0.5rem;
     padding-inline: 0.8rem;
     margin-inline: 0.8em;
-    color:black;
-    border:solid black 2px;
-    background-color: lightgray;
+    color:#F7F4EF;
+    background-color: #1b2e24;
     text-decoration: none;
 }
-
-#nav-bar p{
+#nav-bar a:hover,
+#nav-bar button:hover {
+    color:#D37A5A;
+  
+}
+/* #nav-bar p{
     font-size: 1.5rem;
     padding-block:0.5rem;
     padding-inline: 0.8rem;
     margin-inline: 0.8em;
-    color:black;
     text-decoration: none;
-}
+} */
 
 </style>

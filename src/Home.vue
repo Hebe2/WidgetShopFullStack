@@ -38,27 +38,30 @@ import triangleSpinner from '@/assets/triangleSpinner.jpg';
 </template>
 
 <style scoped>
-
+@import url('https://fonts.googleapis.com/css2?family=Isometra&display=swap');
 .banner{
     text-align: center;
-    margin-bottom: 4rem;
-    background-color: lightgray;
+    background-color: #9BBCA8;
     font-size: 1.8rem;
     padding:2px;
-    border-block: black 2px solid;
-
+    border-bottom: rgb(3, 74, 3) 2px solid;
+    color:#212A27;
+    font-family: "Isometra", serif;
 } 
 
 #products-container{
     display: grid;
     grid-template-columns: repeat(3, 25rem);
     grid-template-rows: repeat(1, 20rem);
-    gap: 16px;
+    gap: 32px;
     justify-content: center;
+    padding-block: 5rem;
+    background-color: #eff7f1;
+    font-family: "Isometra", serif;
 }
 
 .img-container{
-    border: black 2px solid;
+    border: rgb(3, 74, 3) 5px solid;
     width:100%;
     height:100%;
     justify-content: center;
@@ -66,6 +69,8 @@ import triangleSpinner from '@/assets/triangleSpinner.jpg';
     overflow: hidden;
     display: flex;
     margin: auto;
+    background-color: white;
+    border-radius: 10px;
 }
 
 
