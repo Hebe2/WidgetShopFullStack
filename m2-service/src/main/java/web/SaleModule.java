@@ -22,6 +22,10 @@ public class SaleModule extends Jooby {
         post("/api/sales", ctx -> {
             Sale sale = ctx.body(Sale.class);
 
+            if (sale == null || sale.getItems() == null || sale.getItems().isEmpty()) {
+                return ctx.send(StatusCode.BAD_REQUEST);
+            }
+
             System.out.println(sale); 
             
             dao.save(sale); 

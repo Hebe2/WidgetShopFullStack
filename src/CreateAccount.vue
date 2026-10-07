@@ -33,71 +33,119 @@ async function addCustomer() {
         <h1>Create Account</h1>
     </div>
 
+    <div id="create-account-body">
+        <form @submit.prevent="addCustomer">
+            <div id="form-container">
 
-    <form @submit.prevent="addCustomer">
-        <div id="form-container">
+                <fieldset id="account-details">
 
-            <fieldset id="account-details">
-
-                <legend>Account Details</legend>
+                    <legend>Account Details</legend>
 
                     <label>Username:</label><input v-model="customer.username" type="text" name="username" required />
-                    <label>First Name:</label><input v-model="customer.firstName" type="text" name="first-name" required />
+                    <label>First Name:</label><input v-model="customer.firstName" type="text" name="first-name"
+                        required />
                     <label>Last Name:</label><input v-model="customer.surname" type="text" name="last-name" required />
-                    <label>Address:</label><textarea v-model="customer.shippingAddress" name="address" required></textarea>
+                    <label>Address:</label><textarea v-model="customer.shippingAddress" name="address"
+                        required></textarea>
                     <label>Email:</label><input v-model="customer.emailAddress" type="email" name="email" required />
-                    <label>Password</label><input v-model="customer.password" type="password" name="password" required />
+                    <label>Password</label><input v-model="customer.password" type="password" name="password"
+                        required />
 
                     <button class="button" id="create-account-button" type="submit">Create Account</button>
 
-            </fieldset>
+                </fieldset>
+            </div>
+        </form>
+        <div id="signin-button-container">
+            <h3>Already have an account?
+                <router-link class="nav" to="/sign-in">Sign In Here</router-link>
+                </h3>
         </div>
-    </form>
-    <div id="signin-button-container">
-        <button class="button" id="createpage-signin-button">
-          <router-link class="nav" to="/sign-in">Sign In</router-link>
-        </button>
     </div>
 </template>
 
 <style scoped>
-
-.banner{
+@import url('https://fonts.googleapis.com/css2?family=Isometra&display=swap'); 
+.banner {
     text-align: center;
-    margin-bottom: 4rem;
-    background-color: lightgray;
+    background-color: #9BBCA8;
     font-size: 1.8rem;
-    padding:2px;
-    border-block: black 2px solid;
-
+    padding: 2px;
+    border-bottom: rgb(3, 74, 3) 2px solid;
+    color: #212A27;
+    font-family: "Isometra", serif;
 }
 
-#form-container{
+#create-account-body {
+    padding-block: 4rem;
+    background-color: #eff7f1;
+    height: 100%;
+    font-family: "Isometra", serif;
+}
+
+#form-container {
     min-width: 15rem;
     max-width: 50rem;
     margin-inline: auto;
 }
-#account-details{
+
+
+#account-details {
     display: grid;
-    gap: 0.5em;
-    grid-template-columns:fit-content(10em) 1fr;
+    grid-template-columns: fit-content(10em) 1fr;
+    gap: 1em;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #F7F4EF;
+    border: solid rgb(3, 74, 3) 3px;
+    padding: 1.5rem;
+    border-radius: 15px;
 }
 
 #account-details legend,
-#account-details p{
+#account-details p {
     grid-column: 1 / -1;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
-.button{
-    font-size: 1rem;
-    padding:5px;
+#account-details legend {
+    color: rgb(3, 54, 3);
+}
+#account-details input{
+    font-family: "Isometra", serif;
 }
 
-#signin-button-container{
-  display: flex;
-  justify-content: center; 
-  margin-top:20px;
+#create-account-button {
+    grid-column: 1 / -1;
+    justify-self: center;
+    background-color: #D37A5A;
+    color: #F7F4EF;
+    border: #874d38 solid 2px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+   
+}
+
+#signin-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+#signin-button-container h3 {
+     text-align: center;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    color: rgb(3, 54, 3);
 }
 
 
+#signin-button-container h3 a {
+    color: #c37154;
+    text-decoration: underline;
+}
 </style>

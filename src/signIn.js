@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-import { clearCart } from '@/cart';
 
 import * as sessionStore from '@/sessionStorage';
 
@@ -18,6 +17,6 @@ export function signIn(customer) {
 export function signOut() {
   isSignedIn.value = false;
   signedInCustomer.value = null;
-  sessionStore.clearSession();
-  clearCart();
+  sessionStore.remove("customer");
+  sessionStore.remove("authToken");
 }
