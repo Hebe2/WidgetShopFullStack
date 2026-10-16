@@ -5,7 +5,7 @@ COPY . .
 RUN chmod +x gradlew && ./gradlew build -x test
 
 # Stage 2: Create a minimal execution runtime environment for Java 21
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 # Copies your freshly built app from Stage 1 into Stage 2
 COPY --from=build /app/build/libs/*.jar app.jar
