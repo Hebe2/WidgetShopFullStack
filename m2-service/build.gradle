@@ -226,3 +226,16 @@ tasks.register("info") {
 		println "--------------------------------------------------------------";
 	}
 }
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'web.Server'
+        )
+    }
+    // This tells Gradle to bundle all your library dependencies inside the JAR
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
