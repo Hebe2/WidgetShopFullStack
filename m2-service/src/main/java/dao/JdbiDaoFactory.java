@@ -14,11 +14,19 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
  */
 public class JdbiDaoFactory {
     
+   // 1. Replace with your Render Postgres Username
+   private static final String DB_USERNAME = "hebe"; 
+   // 2. Replace with your Render Postgres Password
+   private static final String DB_PASSWORD = "5SHN3EhkTOPPGPDGFubqPI1ttxjEIJhq"; 
 
-   private static final String DB_USERNAME = "sa";
-   private static final String DB_PASSWORD = "sa";
+   // 3. Paste your External Database URL here, but change the prefix from "postgresql://" to "jdbc:postgresql://"
+   private static String jdbcUri = "postgresql://hebe:5SHN3EhkTOPPGPDGFubqPI1ttxjEIJhq@dpg-db8nl7qvcj2c739t14h0-a.oregon-postgres.render.com/widgetshop";
 
-   private static String jdbcUri = "jdbc:h2:tcp://localhost/customers";
+//
+//   private static final String DB_USERNAME = "sa";
+//   private static final String DB_PASSWORD = "sa";
+//
+//   private static String jdbcUri = "jdbc:h2:tcp://localhost/customers";
 
    private static HikariDataSource HIKARI_DATA_SOURCE;
    private static Jdbi JDBI;
