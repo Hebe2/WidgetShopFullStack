@@ -43,10 +43,6 @@ dependencies {
 	testImplementation group: "org.hamcrest", name: "hamcrest", version: "3.0";
 
         implementation group: "org.apache.commons", name: "commons-email", version: "1.6.0";
-        implementation group: "org.postgresql", name: "postgresql", version: "42.7.2";
-  
-        
-
 
 }
 
@@ -230,20 +226,3 @@ tasks.register("info") {
 		println "--------------------------------------------------------------";
 	}
 }
-
-jar {
-    manifest {
-        attributes(
-            'Main-Class': 'web.Server'
-        )
-    }
-    // FIX: Tells Gradle to pack BOTH compilation libraries and runtime drivers into your fat JAR
-    from {
-        (configurations.compileClasspath + configurations.runtimeClasspath).collect { 
-            it.isDirectory() ? it : zipTree(it) 
-        }
-    }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-
