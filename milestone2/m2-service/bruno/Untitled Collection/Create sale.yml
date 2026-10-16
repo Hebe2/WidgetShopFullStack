@@ -1,0 +1,44 @@
+info:
+  name: Create sale
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: http://localhost:8087/api/sales
+  body:
+    type: json
+    data: |-
+      {
+        "customer": {
+          "customerId": 6,
+          "username": "Mary390"
+        },
+        "date": "2026-10-02T10:00:00",
+        "items": [
+          {
+            "product": {
+              "productId": SQ1111
+            },
+            "quantityPurchased": 2,
+            "salePrice": 6.99
+          }
+        ]
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+    - expression: res.body.customer.customerId
+      operator: eq
+      value: "6"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

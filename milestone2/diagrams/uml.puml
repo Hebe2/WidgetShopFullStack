@@ -1,0 +1,41 @@
+@startuml
+
+' === Style Tweaks ===
+skin rose
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+actor "Customer" as user
+participant "Products.vue" as page << Web Page >>
+participant "filterByCategory()" as fn << JavaScript >>
+participant "ProductModule" as module << Jooby Module >>
+participant "ProductJdbiDAO" as dao << DAO >>
+database "H2 Database" as db
+
+user -> page++ : clicks category button
+page -> fn++ : filterByCategory(category)
+fn -> module++ : HTTP GET /api/categories/{category}
+module -> dao++ : filterByCategory(category)
+dao -> db++ : SELECT ... FROM Product\nWHERE category = :category\nAND quantity_in_stock > 0
+db --> dao-- : rows
+dao --> module-- : Collection<Product>
+module --> fn-- : 200 OK (JSON array)
+fn -> fn : products.value = response.data
+fn --> page-- : return
+page --> user-- : displays filtered products
+@enduml
+@enduml

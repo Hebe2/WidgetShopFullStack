@@ -1,0 +1,23 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<%@page import="domain.Customer" %>
+
+
+<%
+    Customer customer = (Customer) session.getAttribute("customer");
+%>
+
+<nav id="nav-bar">
+    <% if (customer != null) { %>
+    <a href="index.jsp"><button>Home</button></a>
+    <a href="products.jsp"><button>Browse Products</button></a>
+    <a href="cart.jsp"><button>View cart</button></a>
+    <a href="sign-out"><button>Sign Out</button></a>
+    <p>Welcome, <%= customer.getFirstName() %>!</p>
+
+    <% } else { %>
+    <a href="index.jsp"><button>Home</button></a>
+    <a href="sign-in.jsp"><button>Sign-in</button></a>
+    <a href="create-account.jsp"><button>Create Account</button></a>
+    <% } %>
+</nav>

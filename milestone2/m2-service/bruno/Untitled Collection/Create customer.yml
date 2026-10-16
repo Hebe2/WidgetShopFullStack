@@ -1,0 +1,35 @@
+info:
+  name: Create customer
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:8087/api/register
+  body:
+    type: json
+    data: |-
+      {
+        "username": "Jane930",
+        "firstName": "Jane",
+        "surname": "Smith",
+        "password": "pw930",
+        "emailAddress":"jane@aaa.com",
+        "shippingAddress": "930 nam Road"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+    - expression: res.body
+      operator: isEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

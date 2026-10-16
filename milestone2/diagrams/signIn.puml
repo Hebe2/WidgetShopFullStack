@@ -1,0 +1,55 @@
+@startuml
+
+' === Style Tweaks ===
+skin rose
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+
+' === Actors / Participants
+
+actor "User" as user
+participant "sign-in" as signInPage << JSP Page >>
+participant "SignInServlet" as SignInServlet <<Servlet>>
+participant "session" as session <<HTTP session>>
+participant "CustomerJdbiDAO" as dao << DAO >>
+database "H2 Database" as db
+
+
+' === Interactions ===
+
+user -> signInPage++ : clicks "Sign In" button
+
+signInPage -> SignInServlet++ : POST sign in (username,password)
+
+SignInServlet -> dao++ : getByUsername(username)
+dao -> db++ : doesCustomerExist(username)
+db --> dao-- : customer exist or not
+dao --> SignInServlet-- : return customer or null if customer doesnt exist 
+
+SignInServlet -> session++ : session.setAttribute("customer", customer)
+
+alt customer found AND password matches
+    SignInServlet -> SignInServlet : checkValidLogin(username,password)
+    SignInServlet --> user-- : redirect to index.jsp (shows signed-in nav bar)
+else customer not found OR password incorrect
+    SignInServlet -> SignInServlet : "Invalid username or password"
+    SignInServlet --> user-- : redirect to sign-in.jsp (shows validation message)
+end
+
+
+@enduml

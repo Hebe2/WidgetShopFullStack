@@ -1,0 +1,134 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 19 Aug 2026, 15:09:50
+    Author     : hebebebebe
+*/
+
+.banner{
+    text-align: center;
+    margin-bottom: 4rem;
+    background-color: lightgray;
+    font-size: 1.8rem;
+    padding:2px;
+    border-block: black 2px solid;
+
+}
+
+/*nav bar*/
+#nav-bar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+#nav-bar button{
+    font-size: 1.5rem;
+    padding:3px;
+    margin-inline:0.8em;
+}
+
+#nav-bar p{
+    margin-inline:0.5rem;
+    font-size: 1.5rem;
+}
+
+/*home page*/
+#products-container{
+    display: grid;
+    grid-template-columns: repeat(2, 25rem);
+    grid-template-rows: repeat(1, 20rem);
+    gap: 16px;
+    justify-content: center;
+}
+
+.img-container{
+    border: black 2px solid;
+    width:100%;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: flex;
+    margin: auto;
+}
+
+
+.product-img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+.footer-text{
+    text-align:center;
+}
+
+/*create account page*/
+#form-container{
+    min-width: 15rem;
+    max-width: 50rem;
+    margin-inline: auto;
+}
+#account-details{
+    display: grid;
+    gap: 0.5em;
+    grid-template-columns:fit-content(10em) 1fr;
+}
+
+#account-details legend,
+#account-details p{
+    grid-column: 1 / -1;
+}
+
+.button{
+    font-size: 1rem;
+    padding:5px;
+}
+/*
+#createpage-signin-button{
+    display: block;
+    margin: 0 auto;
+}*/
+
+#signin-button-container{
+    display: flex;
+  justify-content: center; 
+  margin-top:20px;
+}
+
+
+/*products page*/
+.category-filter{
+    text-align: center;
+    margin: 2em;
+}
+
+.category-button{
+    font-size: 1.5rem;
+    padding:5px;
+}
+
+#products-table{
+    //margin: auto;
+    margin-inline: auto;
+    border-collapse: collapse;
+    margin-bottom: 8rem;
+}
+
+#products-table td, #products-table th  {
+    border-block: 2px solid black;
+    padding:2rem;
+    font-size: 1.2rem;
+}
+
+.buy-button{
+    font-size: 1.2rem;
+    padding:5px;
+}
+
+

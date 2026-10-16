@@ -1,0 +1,28 @@
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Other/SQLTemplate.sql to edit this template
+ */
+/**
+ * Author:  hebebebebe
+ * Created: 24 Aug 2026
+ *adapted from studentsystem
+ */
+
+create table if not exists Customer (
+    customer_id INT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    shipping_address VARCHAR(200) NOT NULL,
+    email_address VARCHAR(200) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+create table if not exists Product (
+    product_id VARCHAR(50) PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    description VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    list_price DECIMAL(10,2) NOT NULL,
+    quantity_in_stock DECIMAL(10,2) NOT NULL
+);

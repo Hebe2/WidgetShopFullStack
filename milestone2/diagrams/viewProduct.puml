@@ -1,0 +1,49 @@
+@startuml
+
+' === Style Tweaks ===
+skin rose
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+
+' === Actors / Participants
+
+actor "User" as user
+participant "products.jsp" as productPage << JSP Page >>
+participant "ProductJdbiDAO" as dao << DAO >>
+database "H2 Database" as db
+
+
+' === Interactions ===
+note over user : User is already signed in
+user -> productPage++ : clicks "browse product" button
+
+productPage -> dao++ : getProducts()
+dao -> db++ : SELECT products
+db --> dao-- :return products
+dao --> productPage-- : return products 
+
+productPage -> dao++ : getCategories()
+dao -> db++ : SELECT category
+db --> dao-- :return category
+dao --> productPage-- : return category 
+
+productPage -> productPage : build products table
+
+productPage --> user-- : displays products table
+
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+
+' === Style Tweaks ===
+skin rose
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+
+' === Actors / Participants
+
+actor "User" as user
+participant "create-account" as createAccountPage << JSP Page >>
+participant "CreateAccountServlet" as createAccountServlet <<Servlet>>
+participant "CustomerJdbiDAO" as dao << DAO >>
+database "H2 Database" as db
+
+
+' === Interactions ===
+
+user -> createAccountPage++ : clicks "create Account" button
+
+createAccountPage -> createAccountServlet++ : POST customer details
+
+createAccountServlet -> dao++ : save(customer)
+dao -> db++ : INSERT customer
+db --> dao : customer saved
+dao --> createAccountServlet : success
+
+createAccountServlet --> user : redirect to sign-in.jsp
+
+@enduml
