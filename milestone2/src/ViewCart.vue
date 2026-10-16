@@ -8,7 +8,7 @@ import * as sessionStore from '@/sessionStorage';
 
 const router = useRouter();
 const sale = ref(getSale());
-const BASE_URL = 'https://widgetshop-backend.onrender.com';
+const BASE_URL = 'http://localhost:8087';
 
 async function checkout() {
     if (sale.value.items.length === 0) {

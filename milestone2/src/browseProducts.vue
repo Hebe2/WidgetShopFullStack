@@ -11,7 +11,7 @@ const router = useRouter();
 const products = ref([]);
 const categories = ref(new Array());
 
-const BASE_URL = 'https://widgetshop-backend.onrender.com';
+const BASE_URL = 'http://localhost:8087';
 const productsApiUrl = `${BASE_URL}/api/products`;
 const categoriesApiUrl = `${BASE_URL}/api/categories`;
 const categoriesFilterApiUrl = ({ category }) => `${BASE_URL}/api/categories/${category}`;

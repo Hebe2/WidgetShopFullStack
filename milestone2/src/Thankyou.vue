@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { clearCart, getSale } from '@/cart';
 
 const sale = ref(getSale());
-const BASE_URL = 'https://widgetshop-backend.onrender.com';
+const BASE_URL = 'http://localhost:8087';
 
 function checkout(sale) {
     const customer = sessionStore.get("customer");
