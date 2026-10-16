@@ -237,9 +237,13 @@ jar {
             'Main-Class': 'web.Server'
         )
     }
-    // This tells Gradle to bundle all your library dependencies inside the JAR
+    // FIX: Tells Gradle to pack BOTH compilation libraries and runtime drivers into your fat JAR
     from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        (configurations.compileClasspath + configurations.runtimeClasspath).collect { 
+            it.isDirectory() ? it : zipTree(it) 
+        }
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
+
+

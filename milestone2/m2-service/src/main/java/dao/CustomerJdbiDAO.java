@@ -9,6 +9,7 @@ import java.util.Collection;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
@@ -30,10 +31,15 @@ public interface CustomerJdbiDAO extends CustomerDAO {
     @SqlUpdate("delete from Customer where customer_id = :customerId")
     public void delete(@BindBean Customer aCustomer);
 
-    @Override
     @SqlUpdate("insert into Customer(username, first_name, last_name, shipping_address, email_address, password)\n"
             + "values (:username, :firstName, :surname, :shippingAddress, :emailAddress, :password)")
-    public void save(@BindBean Customer aCustomer);
+    @GetGeneratedKeys
+    Integer insertCustomer(@BindBean Customer customer);
+
+    @Override
+    default void save(Customer customer) {
+        customer.setCustomerId(insertCustomer(customer));
+    }
 
     @Override
     @SqlQuery("select customer_id AS customerId, username, first_name AS firstName, last_name AS surname, "

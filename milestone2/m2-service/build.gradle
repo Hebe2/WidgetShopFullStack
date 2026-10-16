@@ -24,6 +24,7 @@ dependencies {
 	
 	def h2Ver = "2.4.240";
 	implementation group: "com.h2database", name: "h2", version: h2Ver;
+	implementation group: "org.postgresql", name: "postgresql", version: "42.7.7";
 	
 	def hikariVer = "7.1.0";
 	implementation group: "com.zaxxer", name: "HikariCP", version: hikariVer;
