@@ -8,6 +8,7 @@ import * as sessionStore from '@/sessionStorage';
 
 const router = useRouter();
 const sale = ref(getSale());
+const BASE_URL = 'https://widgetshop-backend.onrender.com';
 
 async function checkout() {
     if (sale.value.items.length === 0) {
@@ -17,7 +18,7 @@ async function checkout() {
     try {
         const customer = sessionStore.get("customer");
         sale.value.setCustomer(customer);
-        await axios.post('http://localhost:8087/api/sales', sale.value);
+        await axios.post(`${BASE_URL}/api/sales`, sale.value);
         clearCart();
         router.push("/thank-you");
     } catch (error) {

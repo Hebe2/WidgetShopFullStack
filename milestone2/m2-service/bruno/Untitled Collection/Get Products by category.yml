@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/categories/Squishies
+  url: https://widgetshop-backend.onrender.com/api/categories/Squishies
   auth: inherit
 
 runtime:

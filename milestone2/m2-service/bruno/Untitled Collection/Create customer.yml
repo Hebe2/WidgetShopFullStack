@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8087/api/register
+  url: https://widgetshop-backend.onrender.com/api/register
   body:
     type: json
     data: |-

@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/products
+  url: https://widgetshop-backend.onrender.com/api/products
   body:
     type: json
     data: |-

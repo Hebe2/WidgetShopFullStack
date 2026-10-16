@@ -12,7 +12,8 @@ const customer = ref({
     password: ''
 });
 
-const customersApiUrl = 'http://localhost:8087/api/register';
+const BASE_URL = 'https://widgetshop-backend.onrender.com';
+const customersApiUrl = `${BASE_URL}/api/register`;
 
 async function addCustomer() {
     try {

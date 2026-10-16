@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/categories
+  url: https://widgetshop-backend.onrender.com/api/categories
   auth: inherit
 
 runtime:

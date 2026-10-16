@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8087/api/products/SQ1111
+  url: https://widgetshop-backend.onrender.com/api/products/SQ1111
   auth: inherit
 
 runtime:

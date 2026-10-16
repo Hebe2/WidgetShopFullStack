@@ -11,7 +11,8 @@ const customer = ref({
     password: ''
 });
 
-const customerByUsernameApiUrl = (username) => `http://localhost:8087/api/customers/${username}`;
+const BASE_URL = 'https://widgetshop-backend.onrender.com';
+const customerByUsernameApiUrl = (username) => `${BASE_URL}/api/customers/${username}`;
 
 async function signInCustomer() {
     try {

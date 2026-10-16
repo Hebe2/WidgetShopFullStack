@@ -11,10 +11,10 @@ const router = useRouter();
 const products = ref([]);
 const categories = ref(new Array());
 
-
-const productsApiUrl = 'http://localhost:8087/api/products';
-const categoriesApiUrl = 'http://localhost:8087/api/categories';
-const categoriesFilterApiUrl = ({ category }) => `http://localhost:8087/api/categories/${category}`;
+const BASE_URL = 'https://widgetshop-backend.onrender.com';
+const productsApiUrl = `${BASE_URL}/api/products`;
+const categoriesApiUrl = `${BASE_URL}/api/categories`;
+const categoriesFilterApiUrl = ({ category }) => `${BASE_URL}/api/categories/${category}`;
 
 
 onMounted(() => {

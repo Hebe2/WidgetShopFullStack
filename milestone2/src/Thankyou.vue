@@ -3,11 +3,12 @@ import { ref } from 'vue';
 import { clearCart, getSale } from '@/cart';
 
 const sale = ref(getSale());
+const BASE_URL = 'https://widgetshop-backend.onrender.com';
 
 function checkout(sale) {
     const customer = sessionStore.get("customer");
     sale.value.setCustomer(customer);
-    axios.post('http://localhost:8087/api/sales', sale.value);
+    axios.post(`${BASE_URL}/api/sales`, sale.value);
     clearCart();
     router.push("/thank-you");
     console.log('checkout', sale);
