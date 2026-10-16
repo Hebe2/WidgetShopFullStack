@@ -43,6 +43,10 @@ dependencies {
 	testImplementation group: "org.hamcrest", name: "hamcrest", version: "3.0";
 
         implementation group: "org.apache.commons", name: "commons-email", version: "1.6.0";
+  
+    // Add this line to give Java the PostgreSQL driver:
+    runtimeOnly 'org.postgresql:postgresql:42.7.2'
+
 
 }
 
