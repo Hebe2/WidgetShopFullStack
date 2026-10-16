@@ -45,8 +45,7 @@ dependencies {
         implementation group: "org.apache.commons", name: "commons-email", version: "1.6.0";
         implementation group: "org.postgresql", name: "postgresql", version: "42.7.2";
   
-        // Add this line to give Java the PostgreSQL driver:
-        runtimeOnly 'org.postgresql:postgresql:42.7.2'
+        
 
 
 }
