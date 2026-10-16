@@ -20,7 +20,7 @@ public class JdbiDaoFactory {
    private static final String DB_PASSWORD = "5SHN3EhkTOPPGPDGFubqPI1ttxjEIJhq"; 
 
    // 3. Paste your External Database URL here, but change the prefix from "postgresql://" to "jdbc:postgresql://"
-   private static String jdbcUri = "postgresql://hebe:5SHN3EhkTOPPGPDGFubqPI1ttxjEIJhq@dpg-db8nl7qvcj2c739t14h0-a.oregon-postgres.render.com/widgetshop";
+   private static String jdbcUri = "jdbc:postgresql://hebe:5SHN3EhkTOPPGPDGFubqPI1ttxjEIJhq@dpg-db8nl7qvcj2c739t14h0-a.oregon-postgres.render.com/widgetshop";
 
 //
 //   private static final String DB_USERNAME = "sa";
